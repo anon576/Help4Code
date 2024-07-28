@@ -1,5 +1,5 @@
 server/node_modules
-server/.evn
+server/.env
 client-side/node_modules
 
 
