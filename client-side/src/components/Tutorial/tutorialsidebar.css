@@ -1,0 +1,112 @@
+.tutorial-sidebar-container {
+  background-color: #caf0f8;
+  height: calc(100vh - 83px);
+  width: 0px;
+  box-shadow: 0 0 5px black;
+  overflow-y: auto;
+  margin-top: 83px;
+  /* position: fixed; */
+  /* position: relative; */
+  transition: all 0.2s;
+}
+
+.open-sidebar {
+  width: 300px;
+}
+
+.tutorial-sidebar-heading {
+  display: flex;
+  /* justify-content: center; */
+  padding: 10px;
+}
+
+.tutorial-topic-container {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tutorial-topics {
+  border: 1px solid black;
+  padding: 5px;
+  /* margin-top: 10px; */
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: #003049;
+  color: #f8f9fa;
+  /* font-weight: 600; */
+}
+
+.tutorial-topics:hover {
+  background-color: #002f49ec;
+}
+
+.tutorial-topics span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tutorial-subtopics-container {
+  margin-left: 15px;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.oper-subtopic-items {
+  height: fit-content;
+}
+
+.tutorial-subtopics {
+  font-size: 1rem;
+  padding: 5px;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+
+.tutorial-subtopics:hover {
+  background-color: #e9ecef;
+}
+
+.down-arrow {
+  transform: rotate(0deg);
+  transition: all 0.2s;
+}
+
+.side-bar-up-arrow {
+  transform: rotate(180deg);
+}
+
+.toggle-button-container {
+  position: absolute;
+  left: 0px;
+  top: 88px;
+  padding: 2px;
+  font-size: 1.5rem;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #e9ecef;
+  color: #212529;
+  border: 2px solid #212529;
+  /* border-radius: 5px; */
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transition: all 0.2s;
+}
+
+.toggle-button-container:hover {
+  background-color: #212529;
+  color: #e9ecef;
+}
+
+.open-toggle-btn {
+  left: 300px;
+}

@@ -1,0 +1,120 @@
+const cpp = [
+  {
+    topic: "Introduction",
+    subtopic: ["History and Evolution", "Features and Applications"],
+  },
+  {
+    topic: "Basic Concepts",
+    subtopic: [
+      "Basic Syntax",
+      "Structure of a C++ Program",
+      "Primitive Data Types",
+      "Constants and Variables",
+      "Type Modifiers",
+      "Arithmetic Operators",
+      "Relational Operators",
+      "Logical Operators",
+      "Bitwise Operators",
+      "Assignment Operators",
+      "Miscellaneous Operators",
+    ],
+  },
+  {
+    topic: "Control Structures",
+    subtopic: [
+      "Conditional Statements (if, else, switch)",
+      "Loops (for, while, do-while)",
+      "Function Declaration and Definition",
+      "Parameter Passing (by Value, by Reference)",
+      "Inline Functions",
+      "Function Overloading",
+      "Recursion",
+    ],
+  },
+  {
+    topic: "Advanced Data Types",
+    subtopic: [
+      "Single and Multidimensional Arrays",
+      "C-Style Strings and String Manipulation",
+      "String Class",
+      "Pointers and Address",
+      "Pointer Arithmetic",
+      "Pointers and Arrays",
+      "Pointers to Pointers",
+      "Pointers and Functions",
+      "new and delete Operators",
+      "Dynamic Arrays",
+    ],
+  },
+  {
+    topic: "OOP",
+    subtopic: [
+      "Defining Classes and Creating Objects",
+      "Access Specifiers (public, private, protected)",
+      "Constructors and Destructors",
+      "this Pointer",
+      "Base and Derived Classes",
+      "Types of Inheritance (Single, Multiple, Multilevel, Hierarchical, Hybrid)",
+      "Constructor and Destructor Calls in Inheritance",
+      "Virtual Base Classes",
+      "Function Overriding",
+      "Virtual Functions and Abstract Classes",
+      "Pure Virtual Functions",
+    ],
+  },
+  {
+    topic: "Advanced OOP Concepts",
+    subtopic: [
+      "Unary and Binary Operators",
+      "Overloading with Member Functions and Friend Functions",
+      "Function Templates",
+      "Class Templates",
+      "try, catch, throw",
+      "Custom Exceptions",
+    ],
+  },
+  {
+    topic: "STL",
+    subtopic: [
+      "Benefits of STL",
+      "Components of STL",
+      "Sequence Containers (vector, list, deque)",
+      "Associative Containers (set, map, multiset, multimap)",
+      "Container Adaptors (stack, queue, priority_queue)",
+      "Sorting, Searching",
+      "Other Common Algorithms",
+      "Input, Output, Forward, Bidirectional, Random Access Iterators",
+    ],
+  },
+  {
+    topic: "File Handling",
+    subtopic: [
+      "Reading from and Writing to Files",
+      "File Streams (ifstream, ofstream, fstream)",
+      "Binary File I/O",
+    ],
+  },
+  {
+    topic: "Advanced Topics",
+    subtopic: [
+      "Introduction to Multithreading",
+      "Creating and Managing Threads",
+      "Synchronization",
+      "unique_ptr, shared_ptr, weak_ptr",
+      "Syntax and Usage",
+      "Move Constructors",
+      "Move Assignment Operator",
+    ],
+  },
+  {
+    topic: "Project and Practice",
+    subtopic: [
+      "Console-based Projects",
+      "Real-world Applications",
+      "Practice Problems",
+      "Online Coding Platforms (LeetCode, HackerRank)",
+    ],
+  },
+];
+
+export default cpp;
