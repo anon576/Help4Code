@@ -1,0 +1,39 @@
+.tutorial-main-page {
+  position: relative;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  /* margin-top: 83px; */
+}
+
+.tutorial-main-container {
+  width: calc(100vw -0px);
+  padding: 20px 20px 20px 40px;
+  overflow-y: hidden;
+  margin-top: 83px;
+  overflow: auto;
+  /* margin: auto; */
+  transition: all .2s;
+}
+
+.open-tutorial {
+  width: calc(100vw - 300px);
+}
+
+
+.tutorial-main-heading{
+  font-size: 2rem;
+}
+
+.tutorial-sub-heading{
+  font-size: 1.1rem;
+  padding: 10px 0;
+}
+
+.tutorial-paragraph-content{
+  font-size: 1rem;
+}
+
+.code-container{
+  padding: 0px 0 10px 0;
+}
