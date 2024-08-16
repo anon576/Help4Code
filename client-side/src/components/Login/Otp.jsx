@@ -1,38 +1,25 @@
-import { React, useEffect, useState } from 'react'
+import { React, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { useLocation, useParams } from 'react-router-dom';
-import "../../style/register.css"
+import "../../style/register.css";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BACKEND_URL } from '../constant';
 
 const Otp = (props) => {
-
-    const { setProgress } = props
-
+    const { setProgress } = props;
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const location = useLocation();
-
-    const email = location.state ? location.state.email : null;
-
-    const [showPasswordInput, setShowPasswordInput] = useState(false)
-
-    // const navigate = useNavigate();
-
-    const openLogin = () => { props.trigger(true) }
+    const navigate = useNavigate();
 
     useEffect(() => {
         setProgress(40);
-
         setTimeout(() => {
-            setProgress(100)
-        }, 200)
-
-    }, [setProgress])
-
-    const [userInfo, setUserInfo] = useState({});
+            setProgress(100);
+        }, 200);
+    }, [setProgress]);
 
     const notifySuccess = (message) => toast.success(message, {
         position: "top-center",
@@ -44,74 +31,49 @@ const Otp = (props) => {
         autoClose: 2000,
     });
 
-    const { otptype } = useParams();
-    console.log(otptype)
-    console.log(typeof (otptype))
+    // Function to hash OTP using SHA-256
+    const hashOtp = async (otp) => {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(otp);
+        const hash = await crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+    };
 
-    // Use the useState hook to declare state
-    const [showPassword, setShowPassword] = useState(false);
+    const onSubmit = async (data) => {
+        const storedOtpHash = localStorage.getItem("otp");
+        data.email = localStorage.getItem("email");
+        data.password = localStorage.getItem("password");
+        data.name = localStorage.getItem("name");
 
+        // Hash the OTP entered by the user
+        const enteredOtpHash = await hashOtp(data.otp);
+        console.log(enteredOtpHash);
+        console.log(storedOtpHash);
+        // Compare the hashed OTP with the stored hashed OTP
+        if (enteredOtpHash === storedOtpHash) {
+            console.log("here")
+            try {
+                const response = await axios.post(`${BACKEND_URL}/auth/user`, data);
 
-    // Use useEffect to set the initial value based on otptype
-    useEffect(() => {
-        if (otptype === "forgetpasswordotp") {
-            setShowPasswordInput(true);
+                if (response.status === 201) {
+                    console.log(response.data)
+                    notifySuccess(response.data.message);
+                    localStorage.clear()
+                    localStorage.setItem("token",response.data.token)
+                    console.log(response.data.token)
+                    navigate("/")
+                } else {
+                    console.error('OTP verification failed:', response.data.message);
+                    notifyError(response.data.message);
+                }
+            } catch (error) {
+                console.error('Error during verification:', error.message);
+                notifyError(error.response.data.message);
+            }
         } else {
-            setShowPasswordInput(false);
+            notifyError("Invalid OTP");
         }
-    }, [otptype]);
-
-
-    const onSubmit = (data) => {
-        data.email = email
-        setUserInfo(data);
-        console.log(data)
-        console.log(userInfo)
-        if (otptype === "registerotp") {
-            verifyRegisterOtp(data)
-        }
-        if (otptype === "forgetpasswordotp") {
-            verifyForgetPasswordOtp(data)
-        }
-    }
-
-    const verifyRegisterOtp = async (data) => {
-        try {
-            const response = await axios.post('http://localhost:8080/verifyOTP', data);
-
-            if (response.status === 200) {
-                console.log(response.data.message);
-                notifySuccess(response.data.message)
-                openLogin()
-            } else {
-                console.error('otp varification failed:', response.data.message);
-                notifyError(response.data.message)
-            }
-        } catch (error) {
-            console.error('Error during varification:', error.message);
-            // alert(`Error: ${error.response.data.message}`);
-            notifyError(error.response.data.message)
-        }
-    }
-
-    const verifyForgetPasswordOtp = async (data) => {
-        try {
-            const response = await axios.post('http://localhost:8080/verifyForgetOTP', data);
-
-            if (response.status === 200) {
-                console.log(response.data.message);
-                notifySuccess(response.data.message)
-                openLogin()
-            } else {
-                console.error('forget password otp varification failed:', response.data.message);
-                notifyError(response.data.message)
-            }
-        } catch (error) {
-            console.error('Error during varification forget password otp:', error.message);
-            // alert(`Error: ${error.response.data.message}`);
-            notifyError(error.response.data.message)
-        }
-    }
+    };
 
     return (
         <div className='register'>
@@ -124,47 +86,17 @@ const Otp = (props) => {
                             name='otp'
                             placeholder='Enter OTP'
                             {...register("otp", {
-                                required: "please Enter Valid OTP"
+                                required: "Please enter a valid OTP"
                             })}
                         />
                         <p>{errors?.otp?.message}</p>
-
-                        {showPasswordInput &&
-                            <div>
-                                <input
-                                    type={showPassword ? "text" : 'password'}
-                                    name='password'
-                                    placeholder='Enter New password'
-                                    {...register("password", {
-                                        required: "please Enter new password",
-                                        minLength: {
-                                            value: 6,
-                                            message: "Password must be at least 6 characters long",
-                                        },
-                                        maxLength: {
-                                            value: 12,
-                                            message: "Legth of password must be less than 12 characters",
-                                        }
-                                    })}
-                                />
-                                <p>{errors?.password?.message}</p>
-
-                                <div className="password">
-                                    <input type="checkbox" id='showpassword' value={showPassword}
-                                        onChange={() =>
-                                            setShowPassword((prev) => !prev)
-                                        } />
-                                    <label htmlFor="showpassword">Show password</label>
-                                </div>
-                            </div>
-                        }
                     </div>
                     <input type="submit" className='login-button' />
                 </div>
             </form>
             <ToastContainer />
         </div>
-    )
-}
+    );
+};
 
-export default Otp
+export default Otp;

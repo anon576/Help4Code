@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 class Utils {
@@ -12,10 +11,7 @@ class Utils {
             "Body":"Your OTP for the reseting password"
         }
     ]
-    static passwordEncrypt = async (password) => {
-        const hash_password = await bcrypt.hash(password, 10);
-        return hash_password
-    }
+    
 
     static generateToken = (payload)=>{
         return jwt.sign(payload,process.env.JWT_TOKEN)
@@ -34,7 +30,6 @@ class Utils {
                 pass:process.env.PASSWORD
             }
         })
-        console.log(otp)
         const mail_option = {
             from:process.env.EMAIL,
             to: email,
@@ -53,6 +48,13 @@ class Utils {
     static generateOtp=()=>{
         return Math.floor(100000+Math.random()*900000).toString();
     }
+
+    static hashOtp = async (otp) => {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(otp);
+        const hash = await crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+    };
 }
 
 
