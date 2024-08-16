@@ -141,3 +141,4 @@ export const displayTutorilas = [
     }
   ];
   
+ export  const BACKEND_URL =  "http://192.168.43.192:5000"

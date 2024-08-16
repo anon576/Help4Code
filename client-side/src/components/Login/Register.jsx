@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BACKEND_URL } from '../constant';
 
 const Register = (props) => {
 
@@ -49,7 +50,7 @@ const Register = (props) => {
 
     const userRegister = async (data) => {
         try {
-            const response = await axios.post('http://localhost:8080/register', data);
+            const response = await axios.post(`${BACKEND_URL}/otp`, data);
 
             if (response.status === 200) {
                 console.log(response.data.message);

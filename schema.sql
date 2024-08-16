@@ -1,0 +1,13 @@
+CREATE DATABASE Help4Code;
+
+use Help4Code;
+
+CREATE TABLE User (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone_no VARCHAR(15),
+    password VARCHAR(255) NOT NULL
+);
+
+
