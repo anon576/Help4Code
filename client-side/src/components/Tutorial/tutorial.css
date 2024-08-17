@@ -13,27 +13,48 @@
   margin-top: 83px;
   overflow: auto;
   /* margin: auto; */
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .open-tutorial {
   width: calc(100vw - 300px);
 }
 
-
-.tutorial-main-heading{
+.tutorial-main-heading {
   font-size: 2rem;
 }
 
-.tutorial-sub-heading{
+.tutorial-sub-heading {
   font-size: 1.1rem;
   padding: 10px 0;
 }
 
-.tutorial-paragraph-content{
+.tutorial-paragraph-content {
   font-size: 1rem;
 }
 
-.code-container{
+.code-container {
   padding: 0px 0 10px 0;
+}
+
+.tutorial-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.previous-btn {
+  width: 100px;
+  cursor: pointer;
+}
+
+.next-btn {
+  width: 100px;
+  cursor: pointer;
+}
+
+.diable-btn {
+  opacity: 0.8;
+  cursor: not-allowed;
 }

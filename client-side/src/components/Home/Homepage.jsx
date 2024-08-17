@@ -92,7 +92,7 @@ const Homepage = (props) => {
       </section>
 
       <section className="home-services">
-        <div className="home-services-content">
+        <div className="home-services-content" id="homeTutorial">
           <div className="home-services-header">
             <h1>Free E-Learning Tutorials</h1>
             {/* <Link to="/services"><button className='home-button'>view All services</button></Link> */}
@@ -106,14 +106,20 @@ const Homepage = (props) => {
                   <h2>{service.name}</h2>
                   <p>{service.description}</p>
                   {/* <Link to={"/services"+"/"+service.serviceID}>Read More</Link> */}
-                  <Link to={`/tutoril/${service.name.split(" ")[0]}`}>Start Learning...</Link>
+                  <Link
+                    to={`/tutorial/${
+                      service.name.split(" ")[0]
+                    }/main introduction`}
+                  >
+                    Start Learning...
+                  </Link>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="features">
+        <div className="features" id="homeProgram">
           <h3>
             <span>Practice Programs</span>
           </h3>
@@ -136,7 +142,7 @@ const Homepage = (props) => {
             ))}
           </div>
         </div>
-        <div className="features">
+        <div className="features" id="homeServices">
           <h3>
             <span>Our Service</span>
           </h3>
