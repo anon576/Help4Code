@@ -41,9 +41,9 @@ const AdminUsers = () => {
     useEffect(() => {
         const fetchAllUsers = async () => {
 
-            const adminToken = localStorage.getItem('adminToken');
+            const admin_token = localStorage.getItem('admin_token');
 
-            if (!adminToken) {
+            if (!admin_token) {
                 console.error('Admin Token is missing or invalid.');
                 return;
             }
@@ -51,7 +51,7 @@ const AdminUsers = () => {
             try {
                 const response = await axios.get('http://localhost:8080/getallusers', {
                     headers: {
-                        Authorization: `Bearer ${adminToken}`,
+                        Authorization: `Bearer ${admin_token}`,
                     },
                 });
                 // console.log(response.data)
@@ -91,16 +91,16 @@ const AdminUsers = () => {
 
         try {
 
-            const adminToken = localStorage.getItem('adminToken');
+            const admin_token = localStorage.getItem('admin_token');
 
-            if (!adminToken) {
+            if (!admin_token) {
                 console.error('Admin Token is missing or invalid.');
                 return;
             }
 
             const response = await axios.post('http://localhost:8080/adduser', userData, {
                 headers: {
-                    Authorization: `Bearer ${adminToken}`,
+                    Authorization: `Bearer ${admin_token}`,
                 },
             });
 

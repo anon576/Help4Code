@@ -6,7 +6,7 @@ const AdminPrivateRoute = ({
     component: Component,
 }) => {
 
-    const isAdminSignedIn = !!localStorage.getItem('adminToken')
+    const isAdminSignedIn = !!localStorage.getItem('admin_token')
 
 
     if (isAdminSignedIn) {

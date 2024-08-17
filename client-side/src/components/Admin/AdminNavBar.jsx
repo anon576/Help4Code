@@ -16,7 +16,7 @@ const AdminNavBar = () => {
 
 
     const handleSignOut = () => {
-        localStorage.removeItem('adminToken')
+        localStorage.removeItem('admin_token')
         window.location.reload();
     }
 
@@ -28,7 +28,7 @@ const AdminNavBar = () => {
 
                 <div className="admin-logo">
                     <img src={logo} alt="" />
-                    <span className="name">Codestream</span>
+                    <span className="name">Help4Code</span>
                 </div>
 
                 <div className="admin-search-bar">
@@ -47,7 +47,7 @@ const AdminNavBar = () => {
                     <Link to="/adminusers" >Users</Link>
                     <Link to="/adminservices" >Services</Link>
                     <Link to="/activeservices">Active Services</Link>
-                    <Link>Courses</Link>
+                    <Link to="/admin_course" > Courses</Link>
                     <Link>Internships</Link>
                 </div>
                 <div className='admin-logout'>

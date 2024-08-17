@@ -11,3 +11,23 @@ CREATE TABLE User (
 );
 
 
+CREATE TABLE Course (
+    course_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(1000) NOT NULL,
+    course_introduction TEXT
+);
+
+CREATE TABLE Chapter (
+    chapter_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(1000) NOT NULL,
+    course_id INT NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES Course(course_id)
+);
+
+CREATE TABLE SubChapter (
+    sub_chapter_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(1000) NOT NULL,
+    content TEXT,
+    chapter_id INT NOT NULL,
+    FOREIGN KEY (chapter_id) REFERENCES Chapter(chapter_id)
+);

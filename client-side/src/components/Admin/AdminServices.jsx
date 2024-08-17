@@ -12,16 +12,16 @@ const AdminServices = () => {
         const fetchServices = async () => {
             try {
 
-                const adminToken = localStorage.getItem('adminToken');
+                const admin_token = localStorage.getItem('admin_token');
 
-                if (!adminToken) {
+                if (!admin_token) {
                     console.error('Admin Token is missing or invalid.');
                     return;
                 }
 
                 const response = await axios.get('http://localhost:8080/services', {
                     headers: {
-                        Authorization: `Bearer ${adminToken}`,
+                        Authorization: `Bearer ${admin_token}`,
                     },
                 });
                 setServices(response.data);

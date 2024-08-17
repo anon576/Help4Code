@@ -3,30 +3,31 @@ import { FaChartLine, FaChartPie, FaIndianRupeeSign, FaUser } from "react-icons/
 import "../../style/admindashboard.css"
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { BACKEND_URL } from '../constant';
 
 const AdminDashboard = () => {
 
     const [dashboardData, setDashboardData] = useState({
         totalUsers: 0,
         totalActiveServices: 0,
-        totalIncome: 0,
+        totalEnrolledCourse: 0,
         totalSales: 0,
     });
 
     useEffect(() => {
         const fetchDashboardData = async () => {
 
-            const adminToken = localStorage.getItem('adminToken');
+            const admin_token = localStorage.getItem('admin_token');
 
-            if (!adminToken) {
+            if (!admin_token) {
                 console.error('Admin Token is missing or invalid.');
                 return;
             }
 
             try {
-                const response = await axios.get('http://localhost:8080/getDashboardCardData', {
+                const response = await axios.get(`${BACKEND_URL}/admin/dashboard`, {
                     headers: {
-                        Authorization: `Bearer ${adminToken}`,
+                        Authorization: `${admin_token}`,
                     },
                 });
                 console.log(response.data)
@@ -68,8 +69,8 @@ const AdminDashboard = () => {
 
                 <div className="admin-info-card">
                     <div>
-                        <p>Total Income</p>
-                        <h2>{dashboardData.totalIncome || "0"}</h2>
+                        <p>Total Enrolled Course</p>
+                        <h2>{dashboardData.totalEnrolledCourse || "0"}</h2>
                     </div>
                     <FaIndianRupeeSign className='admin-icons' />
                 </div>

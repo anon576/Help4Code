@@ -7,4 +7,5 @@ AuthRouter.post("/otp",AuthHandlers.sendOTP)
 AuthRouter.post("/user",AuthHandlers.signUp)
 AuthRouter.post("/login",AuthHandlers.login)
 AuthRouter.post("/forget_password",AuthHandlers.forgetPassword)
+AuthRouter.post("/admin_login",AuthHandlers.adminLogin)
 export default AuthRouter

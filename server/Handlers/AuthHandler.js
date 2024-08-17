@@ -142,6 +142,31 @@ class AuthHandlers{
             });
         }
     };
+
+
+    static adminLogin = async (req, res) => {
+        try {
+            const { admin, adminPassword } = process.env;
+            const { username, password } = req.body;
+            if (!username || !password) {
+                return res.status(400).json({ message: "Username and password are required" });
+            }
+    
+            if (username === admin && password === adminPassword) {
+                const payload = {
+                    role : "admin",
+                }
+                const admin_token = Utils.generateToken(payload); 
+                return res.status(200).json({ message: "Login successful", admin_token });
+            } else {
+                return res.status(401).json({ message: "Invalid credentials" });
+            }
+        } catch (error) {
+            console.error('Admin login error:', error.message);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    }
+    
     
     
 }

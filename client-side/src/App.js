@@ -38,6 +38,13 @@ import ServiceChanges from "./components/Service/ServiceChanges";
 import { useHotkeys } from "react-hotkeys-hook";
 import ActiveServices from "./components/Service/ActiveServices";
 import Tutorial from "./components/Tutorial/Tutorial";
+import AdminCourse from "./components/Admin/Course/Course";
+import AdminChapterCourse from "./components/Admin/Course/CourseChapter";
+import AddAdminCourseChappter from "./components/Admin/Course/AddCourseChapter";
+import UpdateAdminCourseChappter from "./components/Admin/Course/UpdateCourseChapter";
+import AdminTopicCourse from "./components/Admin/Course/Topics/AdminVeiwTopic";
+import AddAdminTopic from "./components/Admin/Course/Topics/AddTopics";
+import UpdateAdminTopic from "./components/Admin/Course/Topics/UpdateTopics";
 // import RazorpayButton from "./components/RazorpayButton";
 
 function App() {
@@ -304,6 +311,76 @@ function App() {
               <AdminPrivateRoute
                 adminNavbar={AdminNavBar}
                 component={ActiveServices}
+              />
+            }
+          />
+
+          <Route
+            path="/admin_course"
+            element={
+              <AdminPrivateRoute
+                adminNavbar={AdminNavBar}
+                component={AdminCourse}
+              />
+            }
+          />
+
+          <Route
+            path="/adminchaptercourse"
+            element={
+              <AdminPrivateRoute
+                adminNavbar={AdminNavBar}
+                component={AdminChapterCourse}
+              />
+            }
+          />
+
+          <Route
+            path="/addadminchaptercourse"
+            element={
+              <AdminPrivateRoute
+                adminNavbar={AdminNavBar}
+                component={AddAdminCourseChappter}
+              />
+            }
+          />
+
+          <Route
+            path="/updateadminchaptercourse"
+            element={
+              <AdminPrivateRoute
+                adminNavbar={AdminNavBar}
+                component={UpdateAdminCourseChappter}
+              />
+            }
+          />
+
+          <Route
+            path="/admintopic"
+            element={
+              <AdminPrivateRoute
+                adminNavbar={AdminNavBar}
+                component={AdminTopicCourse}
+              />
+            }
+          />
+
+          <Route
+            path="/addadmintopic"
+            element={
+              <AdminPrivateRoute
+                adminNavbar={AdminNavBar}
+                component={AddAdminTopic}
+              />
+            }
+          />
+
+<Route
+            path="/updateadmintopic"
+            element={
+              <AdminPrivateRoute
+                adminNavbar={AdminNavBar}
+                component={UpdateAdminTopic}
               />
             }
           />

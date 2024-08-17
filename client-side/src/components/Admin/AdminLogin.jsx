@@ -6,6 +6,7 @@ import "../../style/adminlogin.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../constant';
 
 const AdminLogin = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +34,7 @@ const AdminLogin = () => {
 
     const adminLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/adminLogin', {
+            const response = await axios.post(`${BACKEND_URL}/auth/admin_login`, {
                 username,
                 password,
             });
@@ -41,15 +42,15 @@ const AdminLogin = () => {
             if (response.status === 200) {
                 console.log('Login Successful');
                 // console.log('Admin Token:', response.data.adminToken);
-                const adminToken = response.data.adminToken;
-                await localStorage.setItem('adminToken', adminToken)
-                notifySuccess("login success")
+                const adminToken = response.data.admin_token;
+             localStorage.setItem('admin_token', adminToken)
+                notifySuccess("Login success")
                 setTimeout(() => {
                     navigate("/admindashboard")
                 }, 1500)
             } else {
                 console.log('Login Failed');
-                notifyError("login fail")
+                notifyError("Login Failed")
             }
         } catch (error) {
             console.error('Error during login:', error.message);
@@ -64,7 +65,7 @@ const AdminLogin = () => {
 
                 <div className="admin-logo">
                     <img src={logo} alt="" />
-                    <span className="name">Codestream</span>
+                    <span className="name">Help4Code</span>
                 </div>
 
                 <div className="admin-search-bar">

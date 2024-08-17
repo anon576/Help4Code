@@ -31,9 +31,9 @@ const AdminServiceDetail = () => {
         const fetchServiceDetails = async () => {
             try {
 
-                const adminToken = localStorage.getItem('adminToken');
+                const admin_token = localStorage.getItem('admin_token');
 
-                if (!adminToken) {
+                if (!admin_token) {
                     console.error('Admin Token is missing or invalid.');
                     return;
                 }
@@ -41,7 +41,7 @@ const AdminServiceDetail = () => {
 
                 const response = await axios.get(`http://localhost:8080/service/${serviceID}`, {
                     headers: {
-                        Authorization: `Bearer ${adminToken}`,
+                        Authorization: `Bearer ${admin_token}`,
                     },
                 });
                 setServiceDetails(response.data.service);
@@ -66,9 +66,9 @@ const AdminServiceDetail = () => {
 
         try {
 
-            const adminToken = localStorage.getItem('adminToken');
+            const admin_token = localStorage.getItem('admin_token');
 
-            if (!adminToken) {
+            if (!admin_token) {
                 console.error('Admin Token is missing or invalid.');
                 return;
             }
@@ -76,7 +76,7 @@ const AdminServiceDetail = () => {
             const response = await axios.post(
                 `http://localhost:8080/deleteService/${serviceDetails.serviceID}`, {
                 headers: {
-                    Authorization: `Bearer ${adminToken}`,
+                    Authorization: `Bearer ${admin_token}`,
                 },
             });
 

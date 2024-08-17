@@ -2,6 +2,9 @@ import express from 'express'
 import bodyparser from 'body-parser'
 import cors from "cors";
 import AuthRouter from './Routers/AuthRouter.js';
+import AdminRouter from './Routers/Admin/AdminRouter.js';
+import AdminCourseRouter from './Routers/Admin/AdminCourseRouter.js';
+import AdminTopicRouter from './Routers/Admin/AdminTopicRouter.js';
 
 
 
@@ -24,7 +27,9 @@ app.use(cors({
 
 
 app.use("/auth",AuthRouter)
-
+app.use("/admin",AdminRouter)
+app.use("/admin/course",AdminCourseRouter)
+app.use("/admin/topic",AdminTopicRouter)
 
 
 app.listen(5000,"0.0.0.0")
