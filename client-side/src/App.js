@@ -207,7 +207,7 @@ function App() {
           />
 
           <Route
-            path="/tutoril/:tutorialName"
+            path="/tutorial/:tutorialName/:topic"
             element={
               <PrivateRoute
                 navBar={Header}
