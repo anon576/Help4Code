@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import "../../style/register.css";
-
+import CryptoJS from 'crypto-js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BACKEND_URL } from '../constant';
@@ -32,11 +32,8 @@ const Otp = (props) => {
     });
 
     // Function to hash OTP using SHA-256
-    const hashOtp = async (otp) => {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(otp);
-        const hash = await crypto.subtle.digest('SHA-256', data);
-        return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+    const hashOtp = (otp) => {
+        return CryptoJS.SHA256(otp).toString(CryptoJS.enc.Hex);
     };
 
     const onSubmit = async (data) => {
