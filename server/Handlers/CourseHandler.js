@@ -5,20 +5,19 @@ class CourseHandler{
 
 
     static fetchSideBarContect = async (req, res) => {
-        const { course_name } =  req.params;
-        console.log(course_name)
+        const { course_id } =  req.params;
         try {
             // Fetch the course_id using the course_name
             const [courseResult] = await pool.query(
-                `SELECT course_id FROM Course WHERE course_name = ?`,
-                [course_name]
+                `SELECT course_id FROM Course WHERE course_id = ?`,
+                [course_id]
             );
     
             if (courseResult.length === 0) {
                 return res.status(404).json({ message: 'Course not found' });
             }
     
-            const course_id = courseResult[0].course_id;
+            
     
             // Fetch all chapters and their corresponding subchapters for the given course_id
             const [rows] = await pool.query(
