@@ -14,7 +14,8 @@ CREATE TABLE User (
 CREATE TABLE Course (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
     course_name VARCHAR(1000) NOT NULL,
-    course_introduction TEXT
+    course_introduction TEXT,
+    course_img LONGBLOB
 );
 
 CREATE TABLE Chapter (

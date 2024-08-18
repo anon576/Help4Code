@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
-import { BACKEND_URL } from '../../constant';
+import { BACKEND_URL } from '../../../constant';
 
 const AdminChapterCourse = () => {
     const location = useLocation();
-    const query = new URLSearchParams(location.search);
-    const courseName = query.get('name');
-
+    const { course_name,course_id } = location.state || {};
     const [chapters, setChapters] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const fetchChapters = async () => {
+            console.log(course_name)
             try {
                 const response = await axios.get(`${BACKEND_URL}/admin/course/get_chapter`, {
                     params: {
-                        course_name: courseName
+                        course_id: course_id
                     }
                 });
 
@@ -37,11 +36,11 @@ const AdminChapterCourse = () => {
         };
 
         fetchChapters();
-    }, [courseName]);
+    }, [course_name]);
 
     return (
         <div className='admin-services'>
-            <h1>Chapters of {courseName}</h1>
+            <h1>Chapters of {course_name}</h1>
             {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
             <div className="admin-all-services">
                 {chapters.map((chapter, index) => (
@@ -52,14 +51,14 @@ const AdminChapterCourse = () => {
                             to={{
                                 pathname: `/admintopic`,
                             }}
-                            state={{ course_name: courseName, title: chapter.title, chapter_id: chapter.chapter_id }}>
+                            state={{ course_name: course_name, title: chapter.title, chapter_id: chapter.chapter_id }}>
                             <button className='admin-btn'>Veiw Subtopic</button>
                         </Link>
                         <Link
                             to={{
                                 pathname: `/updateadminchaptercourse`,
                             }}
-                            state={{ course_name: courseName, course_id: chapter.course_id, title: chapter.title, chapter_id: chapter.chapter_id }}>
+                            state={{ course_name: course_name, course_id: chapter.course_id, title: chapter.title, chapter_id: chapter.chapter_id }}>
                             <button className='admin-btn'>Update</button>
                         </Link>
                     </div>
@@ -70,7 +69,7 @@ const AdminChapterCourse = () => {
                         to={{
                             pathname: `/addadminchaptercourse`,
                         }}
-                        state={{ course_name: courseName }}
+                        state={{ course_name,course_id }}
                     >
                         <h1>+</h1>
                     </Link>

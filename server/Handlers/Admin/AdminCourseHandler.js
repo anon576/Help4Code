@@ -4,49 +4,53 @@ class AdminCourseHandler{
     static addCourse = async (req, res) => {
         try {
             const { course_name, course_introduction } = req.body;
+            const course_img = req.file; // Multer stores the file object here
     
             if (!course_name) {
-                return res.status(400).json({
-                    message: "Course name is required",
-                });
+                return res.status(400).json({ message: "Course name is required" });
             }
     
-            // Check if a course with the same name already exists
-            const [existingCourse] = await pool.query(
-                "SELECT * FROM Course WHERE course_name = ?",
+            // Check if course with the same name already exists
+            const [existingCourses] = await pool.query(
+                "SELECT course_id FROM Course WHERE course_name = ?",
                 [course_name]
             );
     
-            if (existingCourse.length) {
-                return res.status(409).json({
-                    message: "A course with the same name already exists",
-                });
+            if (existingCourses.length > 0) {
+                return res.status(400).json({ message: "Course with this name already exists" });
             }
     
-            // Insert new course into the database
+            // If there's an image, convert it to a buffer
+            const imgBuffer = course_img ? course_img.buffer : null;
+    
+            // Insert into the database
             const [result] = await pool.query(
-                "INSERT INTO Course (course_name, course_introduction) VALUES (?, ?)",
-                [course_name, course_introduction]
+                "INSERT INTO Course (course_name, course_introduction, course_img) VALUES (?, ?, ?)",
+                [course_name, course_introduction, imgBuffer]
             );
     
-            return res.status(201).json({
-                message: "Course added successfully",
-                courseId: result.insertId,
-            });
+            if (result.affectedRows === 1) {
+                return res.status(201).json({
+                    message: "Course added successfully",
+                    course_id: result.insertId,
+                });
+            } else {
+                return res.status(500).json({ message: "Failed to add course" });
+            }
         } catch (error) {
             console.error("Error adding course:", error.message);
-            return res.status(500).json({
-                message: "Internal Server Error",
-            });
+            return res.status(500).json({ message: "Internal Server Error" });
         }
     };
+    
+    
 
 
     static addCourseChapter = async (req, res) => {
         try {
-            const { course_name, chapter_title } = req.body;
+            const { course_id, chapter_title } = req.body;
            
-            if (!course_name || !chapter_title) {
+            if (!course_id || !chapter_title) {
                 return res.status(400).json({
                     message: "Course ID and chapter title are required",
                 });
@@ -54,8 +58,8 @@ class AdminCourseHandler{
     
             // Check if the course exists
             const [course] = await pool.query(
-                "SELECT course_id FROM Course WHERE course_name = ?",
-                [course_name]
+                "SELECT course_id FROM Course WHERE course_id = ?",
+                [course_id]
             );
                 console.log(course)
             if (!course.length) {
@@ -63,8 +67,7 @@ class AdminCourseHandler{
                     message: "Course not found",
                 });
             }
-            const course_id = course[0].course_id;
-            // Check if a chapter with the same title already exists for the course
+
             const [existingChapter] = await pool.query(
                 "SELECT * FROM Chapter WHERE title = ? AND course_id = ?",
                 [chapter_title, course_id]
@@ -101,18 +104,18 @@ class AdminCourseHandler{
 
     static fetchCourseChapter = async (req, res) => {
         try {
-            const { course_name } = req.query;
+            const { course_id } = req.query;
     
-            if (!course_name) {
+            if (!course_id) {
                 return res.status(400).json({
-                    message: "Course name is required",
+                    message: "Something went wrong",
                 });
             }
             
             // Fetch the course ID using the course name
             const [course] = await pool.query(
-                "SELECT course_id FROM Course WHERE course_name = ?",
-                [course_name]
+                "SELECT course_id FROM Course WHERE course_id = ?",
+                [course_id]
             );
     
             if (!course.length) {

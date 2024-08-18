@@ -3,11 +3,11 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { BACKEND_URL } from '../../constant';
+import { BACKEND_URL } from '../../../constant';
 
-const AddAdminCourseChappter = () => {
+const UpdateAdminCourseChappter = () => {
     const location = useLocation();
-    const { course_name } = location.state || {};
+    const { course_name, course_id, chapter_id, title } = location.state || {};
     const navigate = useNavigate();
 
     const notifySuccess = (message) =>
@@ -23,12 +23,8 @@ const AddAdminCourseChappter = () => {
         });
 
     const [formData, setFormData] = useState({
-        title: '', // Add title field
+        title: title || '', // Initialize with the current title
     });
-
-    useEffect(() => {
-        console.log(course_name)
-    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -38,51 +34,55 @@ const AddAdminCourseChappter = () => {
         });
     };
 
-    const addData = async (e) => {
+    const updateData = async (e) => {
         e.preventDefault();
-        // Send data with course_name and chapter_title
+        // Data to send to the backend
         const data = {
-            course_name: course_name,
-            chapter_title: formData.title,
+            course_id: course_id,
+            chapter_id: chapter_id,
+            title: formData.title,
         };
-        addServiceData(data);
+        updateServiceData(data);
     };
 
-    const addServiceData = async (data) => {
+    const updateServiceData = async (data) => {
         try {
             // Send the data to the backend
-            const response = await axios.post(
-                `${BACKEND_URL}/admin/course/add_course_chapter`,
+            const response = await axios.put(
+                `${BACKEND_URL}/admin/course/update_course_chapter`,
                 data
             );
 
             const { status, data: responseData } = response;
 
-            if (status === 201) { // Status code for successful creation
+            if (status === 200) { // Status code for successful update
                 notifySuccess(responseData.message);
                 setTimeout(() => {
-                    navigate(`/adminchaptercourse/?name=${course_name}`);
+                    navigate(`/adminchaptercourse`,{
+                        state: { 
+                            course_name, 
+                            course_id
+                        } 
+                    });
                 }, 1500);
             } else if (status === 400) { // Bad request, usually due to missing fields
                 notifyError(responseData.message);
-            } else if (status === 404) { // Course not found
-                notifyError(responseData.message);
-            } else if (status === 409) { // Conflict, chapter already exists
+            } else if (status === 404) { // Course or chapter not found
                 notifyError(responseData.message);
             } else {
                 notifyError('Unexpected error occurred.');
             }
         } catch (error) {
-            console.error('Error adding chapter:', error);
-            notifyError('Error adding chapter.');
+            console.error('Error updating chapter:', error);
+            notifyError('Error updating chapter.');
         }
     };
 
     return (
         <div className='service-changes'>
             <div className="service-changes-container">
-                <h1>Add Chapter</h1>
-                <form action="" className='service-changes-form' onSubmit={addData}>
+                <h1>Update Chapter</h1>
+                <form action="" className='service-changes-form' onSubmit={updateData}>
                     <div>
                         <p>Title</p>
                         <input
@@ -101,4 +101,4 @@ const AddAdminCourseChappter = () => {
     );
 };
 
-export default AddAdminCourseChappter;
+export default UpdateAdminCourseChappter;

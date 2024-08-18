@@ -1,6 +1,9 @@
 import pool from '../Database/Database.js'
 
 class CourseHandler{
+
+
+
     static fetchSideBarContect = async (req, res) => {
         const { course_name } =  req.params;
         console.log(course_name)
@@ -105,7 +108,7 @@ class CourseHandler{
         }
     };
     
-    
+
 
 }
 

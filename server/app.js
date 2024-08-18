@@ -6,6 +6,7 @@ import AdminRouter from './Routers/Admin/AdminRouter.js';
 import AdminCourseRouter from './Routers/Admin/AdminCourseRouter.js';
 import AdminTopicRouter from './Routers/Admin/AdminTopicRouter.js';
 import CourseRouter from './Routers/CourseRouter.js';
+import PublicRouter from './Routers/PublicRouter.js';
 
 
 
@@ -29,6 +30,7 @@ app.use(cors({
 
 app.use("/auth",AuthRouter)
 app.use("/admin",AdminRouter)
+app.use("/public",PublicRouter)
 app.use("/admin/course",AdminCourseRouter)
 app.use("/admin/topic",AdminTopicRouter)
 app.use("/course",CourseRouter)

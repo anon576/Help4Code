@@ -39,12 +39,13 @@ import { useHotkeys } from "react-hotkeys-hook";
 import ActiveServices from "./components/Service/ActiveServices";
 import Tutorial from "./components/Tutorial/Tutorial";
 import AdminCourse from "./components/Admin/Course/Course";
-import AdminChapterCourse from "./components/Admin/Course/CourseChapter";
-import AddAdminCourseChappter from "./components/Admin/Course/AddCourseChapter";
-import UpdateAdminCourseChappter from "./components/Admin/Course/UpdateCourseChapter";
+import AdminChapterCourse from "./components/Admin/Course/Chapter/CourseChapter";
+import AddAdminCourseChappter from "./components/Admin/Course/Chapter/AddCourseChapter";
+import UpdateAdminCourseChappter from "./components/Admin/Course/Chapter/UpdateCourseChapter";
 import AdminTopicCourse from "./components/Admin/Course/Topics/AdminVeiwTopic";
 import AddAdminTopic from "./components/Admin/Course/Topics/AddTopics";
 import UpdateAdminTopic from "./components/Admin/Course/Topics/UpdateTopics";
+import AddAdminCourse from "./components/Admin/Course/AddCourse";
 // import RazorpayButton from "./components/RazorpayButton";
 
 function App() {
@@ -375,12 +376,22 @@ function App() {
             }
           />
 
-<Route
+          <Route
             path="/updateadmintopic"
             element={
               <AdminPrivateRoute
                 adminNavbar={AdminNavBar}
                 component={UpdateAdminTopic}
+              />
+            }
+          />
+
+<Route
+            path="/addcourse"
+            element={
+              <AdminPrivateRoute
+                adminNavbar={AdminNavBar}
+                component={AddAdminCourse}
               />
             }
           />
